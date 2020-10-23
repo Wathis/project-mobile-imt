@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonPage} from '@ionic/react';
+import {IonContent, IonHeader, IonImg, IonPage, IonTitle} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
 import React from 'react';
@@ -22,24 +22,24 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                     {let session = value.sessions![sessionDetails];
                     console.log(value.sessions);
                     let speakers = value.speakers?.filter(speaker => session.speakers.includes(speaker.id));
-                    return <div className="container">
-                            <h1>{session.title}</h1>
+                    return <IonContent className="container">
+                            <IonTitle>{session.title}</IonTitle>
                             {session.image &&
-                                <img src={IMAGE_BASE_URL+session.image}></img>
+                                <IonImg src={IMAGE_BASE_URL+session.image} />
                             }
                             {session.description &&
-                                <div>
+                                <IonContent>
                                     {session.description}
-                                </div>
+                                </IonContent>
                             }
                             {speakers?.map(speaker => {
-                                return <div>
-                                    <img src={IMAGE_BASE_URL+speaker.photoUrl}/>
-                                    <div>{speaker.name}</div>
-                                </div>
+                                return <IonContent>
+                                    <IonImg src={IMAGE_BASE_URL+speaker.photoUrl}/>
+                                    <IonContent>{speaker.name}</IonContent>
+                                </IonContent>
                             })
                             }
-                        </div>
+                        </IonContent>
                     }}
             </DevFestContext.Consumer>
         </IonContent>

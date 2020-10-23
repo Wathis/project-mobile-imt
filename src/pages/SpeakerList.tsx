@@ -1,7 +1,8 @@
-import {IonContent, IonHeader, IonPage} from '@ionic/react';
+import {IonContent, IonHeader, IonItem, IonPage, IonList, IonLabel} from '@ionic/react';
 import React from 'react';
 import './Home.css';
 import TopBarMenu from "../components/TopBarMenu";
+import {DevFestContext} from "../App";
 
 const SpeakerList: React.FC = () => {
   return (
@@ -10,11 +11,17 @@ const SpeakerList: React.FC = () => {
           <TopBarMenu title={"Speakers"} />
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-        </IonHeader>
-          <div className="container">
-              <strong>Ready to create an app?</strong>
-          </div>
+        <IonList>
+          <DevFestContext.Consumer>
+              {({speakers}) => {
+              return speakers?.map((speaker) => (
+                <IonItem key={speaker.id}>
+                    <IonLabel>{speaker.name}</IonLabel>
+                </IonItem>
+              ))
+              }}
+          </DevFestContext.Consumer>
+        </IonList>
       </IonContent>
     </IonPage>
   );

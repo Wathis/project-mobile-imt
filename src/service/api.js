@@ -11,3 +11,15 @@ export const getSessions = () => {
         }
     );
 }
+
+export const getSpeakers = () => {
+    return new Promise(
+        (resolve, reject) => {
+            fetch(`${baseUrl}/speakers`)
+                .then(res => res.json())
+                .then(speakers => {
+                    resolve(speakers);
+                })
+        }
+    );
+}

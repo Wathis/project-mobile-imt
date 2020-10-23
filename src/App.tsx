@@ -27,7 +27,7 @@ import SessionList from "./pages/SessionList";
 import {Session} from './model/Session';
 import {Speaker} from './model/Speaker';
 import Home from './pages/Home';
-import {getSessions} from "./service/api";
+import {getSessions, getSpeakers} from "./service/api";
 import SessionDetails from "./pages/SessionDetails";
 import SpeakerDetails from "./pages/SpeakerDetails";
 
@@ -40,17 +40,21 @@ export const DevFestContext  = React.createContext<Partial<DevFestContextProps>>
 
 const App: React.FC = (props) => {
     const [sessions, setSessions] = useState<Session[]>([]);
+    const [speakers, setSpeakers] = useState<Speaker[]>([]);
 
     useEffect(() => {
         getSessions().then((sessionsJson) => {
             setSessions(Object.keys(sessionsJson).map((id)  => sessionsJson[id]));
+        })
+        getSpeakers().then((speakersJson) => {
+            setSpeakers(Object.keys(speakersJson).map((id) => speakersJson[id]));
         })
     }, []);
 
     return <IonReactRouter>
         <DevFestContext.Provider value={{
             sessions: sessions,
-            speakers: []
+            speakers: speakers
         }}>
             <div id="app">
                 <IonApp>
