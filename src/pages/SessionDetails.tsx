@@ -1,10 +1,10 @@
-import {IonCard, IonContent, IonHeader, IonImg, IonPage, IonTextarea, IonTitle} from '@ionic/react';
+import {IonCard, IonContent, IonHeader, IonImg, IonPage, IonTextarea, IonTitle, IonButton} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import Back from '../components/Back';
-import {Plugins} from '@capacitor/core';
+import {Plugins, CameraResultType} from '@capacitor/core';
 
 interface ContainerProps {}
 
@@ -15,6 +15,7 @@ const SessionDetails: React.FC<ContainerProps> = () => {
   const history = useHistory();
 
   const [mesNotes, setMesNotes] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
 
     const saveNote = async (notesToSave: string) => {
         await Plugins.Storage.set({
@@ -27,8 +28,45 @@ const SessionDetails: React.FC<ContainerProps> = () => {
           const {value: savedNotes} = await Plugins.Storage.get({key: id}) ;
           setMesNotes(savedNotes ? savedNotes : "");
       }
+      const getPhoto = async () => {
+          const {value: savedPhoto} = await Plugins.Storage.get({key: `${id}-photo`}) ;
+          setImageSrc(savedPhoto ? savedPhoto : "");
+      }
       getNote();
+      getPhoto();
     }, [id]);
+
+
+    function getBase64Image(img: HTMLImageElement) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx!.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        return dataURL;
+    }
+
+    const takePicture = async () => {
+        const image = await Plugins.Camera.getPhoto({
+            quality: 90,
+            allowEditing: true,
+            resultType: CameraResultType.Uri,
+        });
+        var imageUrl = image.webPath;
+        setImageSrc(imageUrl!);
+        setTimeout(async function(){
+            const base64Photo = getBase64Image(document.getElementById('custom-img')! as HTMLImageElement);
+            await Plugins.Storage.set({
+                key: `${id}-photo`,
+                value: base64Photo,
+            });
+            console.log(base64Photo);
+        }, 1000);
+    }
 
   return (
     <IonPage>
@@ -73,6 +111,13 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                                             setMesNotes(e.detail.value!);
                                             saveNote(e.detail.value!);
                                         }}></IonTextarea>
+                                        <IonTitle>VOTRE PHOTO</IonTitle>
+                                        <IonButton onClick={() => {
+                                            takePicture();
+                                        }}>Charger photo</IonButton>
+                                        <div>
+                                            <img id={"custom-img"} src={imageSrc} />
+                                        </div>
                                     </IonCard>
 
                                 </>
