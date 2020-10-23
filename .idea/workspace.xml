@@ -6,12 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="210b1eaf-9904-4742-95fb-127280da325c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/SessionList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SessionList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/SpeakerList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/SpeakerList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Speaker.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Speaker.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

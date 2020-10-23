@@ -11,7 +11,7 @@ const Home: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
           <div className="container">
-
+              test
           </div>
       </IonContent>
     </IonPage>

@@ -26,6 +26,7 @@ import Menu from "./components/Menu";
 import SessionList from "./pages/SessionList";
 import { Session } from './model/Session';
 import { Speaker } from './model/Speaker';
+import Home from './pages/Home';
 
 
 type DevFestContextProps = {
