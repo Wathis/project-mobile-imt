@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonPage} from '@ionic/react';
+import {IonContent, IonHeader, IonImg, IonPage, IonTitle} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
 import React from 'react';
@@ -18,23 +18,23 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
                 {value =>
                     {let speaker = value.currentSpeaker!;
                     let sessions = value.sessions?.filter(session => session.speakers.includes(speaker.id));
-                    return <div className="container">
-                            <h1>{speaker.name}</h1>
+                    return <IonContent className="container">
+                            <IonTitle>{speaker.name}</IonTitle>
                             {speaker.photoUrl &&
-                                <img src={IMAGE_BASE_URL+speaker.photoUrl}></img>
+                                <IonImg src={IMAGE_BASE_URL+speaker.photoUrl}></IonImg>
                             }
                             {speaker.shortBio &&
-                                <div>
+                                <IonContent>
                                     {speaker.shortBio}
-                                </div>
+                                </IonContent>
                             }
                             {sessions?.map(session => {
-                                return <div>
-                                    <div>{session.title}</div>
-                                </div>
+                                return <IonContent>
+                                    <IonContent>{session.title}</IonContent>
+                                </IonContent>
                             })
                             }
-                        </div>
+                        </IonContent>
                     }}
             </DevFestContext.Consumer>
         </IonContent>
