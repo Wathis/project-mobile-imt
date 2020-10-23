@@ -1,17 +1,13 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonMenuButton } from '@ionic/react';
+import {IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import React from 'react';
-import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
-import Menu from '../components/Menu';
-import { menuController } from "@ionic/core";
+import TopBarMenu from "../components/TopBarMenu";
 
-const Home: React.FC = () => {
+const SpeakerList: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-            <IonTitle>Test</IonTitle>
-        </IonToolbar>
+          <TopBarMenu title={"Speakers"} />
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
@@ -28,4 +24,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default SpeakerList;

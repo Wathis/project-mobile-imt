@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
-import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonIcon, IonLabel, IonItem } from "@ionic/react";
-import { RouteComponentProps, withRouter } from 'react-router';
+import React, {useState} from 'react';
+import {
+    IonContent,
+    IonHeader,
+    IonIcon,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonMenu,
+    IonMenuToggle,
+    IonTitle,
+    IonToolbar
+} from "@ionic/react";
+import {RouteComponentProps, withRouter} from 'react-router';
 
 interface Page {
     title: string;
@@ -9,11 +20,13 @@ interface Page {
 }
 
 const pages: Page[] = [
-    { title: 'Home', path: '/home', icon: 'home' },
-    { title: 'Root', path: '/', icon: 'root' }
+    { title: 'Sessions', path: '/sessions', icon: 'session' },
+    { title: 'Speakers', path: '/speakers', icon: 'speaker' }
 ];
 
-type Props = RouteComponentProps<{}>;
+type Props = RouteComponentProps<{
+
+}>;
 
 const Menu = ({ history }: Props) => {
     const [activePage, setActivePage] = useState(pages[0].title);
@@ -24,7 +37,7 @@ const Menu = ({ history }: Props) => {
                 <IonItem button
                          color={page.title === activePage ? 'primary' : ''}
                          onClick={() => navigateToPage(page)}>
-                    <IonIcon slot="start" name={page.icon}></IonIcon>
+                    <IonIcon slot="start" name={page.icon} />
                     <IonLabel>
                         {page.title}
                     </IonLabel>
@@ -43,7 +56,7 @@ const Menu = ({ history }: Props) => {
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>
-                        Test
+                        Menu
                     </IonTitle>
                 </IonToolbar>
             </IonHeader>

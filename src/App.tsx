@@ -1,8 +1,8 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import {IonApp, IonPage, IonRouterOutlet, IonSplitPane, IonToolbar, IonTitle} from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
+import {IonApp, IonPage, IonSplitPane} from '@ionic/react';
+import {IonReactRouter} from '@ionic/react-router';
+import SpeakerList from './pages/SpeakerList';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -23,19 +23,9 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Menu from "./components/Menu";
+import SessionList from "./pages/SessionList";
 
-interface Page {
-    title: string;
-    path: string;
-    icon: string;
-}
-
-const pages: Page[] = [
-    { title: 'Home', path: '/', icon: 'home' },
-    { title: 'About', path: '/about', icon: 'information' }
-];
-
-const App: React.FC = () => (
+const App: React.FC = (props) => (
     <IonReactRouter>
         <div id="app">
             <IonApp>
@@ -43,8 +33,9 @@ const App: React.FC = () => (
                     <Menu />
                     <IonPage id="main">
                         <Switch>
-                            <Route path="/home" component={Home} exact={true} />
-                            <Route exact path="/" render={() => <Redirect to="/home" />} />
+                            <Route path="/speakers" component={SpeakerList} exact={true} />
+                            <Route path="/sessions" component={SessionList} exact={true} />
+                            <Route exact path="/" render={() => <Redirect to="/sessions" />} />
                         </Switch>
                     </IonPage>
                 </IonSplitPane>
