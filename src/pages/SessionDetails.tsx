@@ -9,7 +9,11 @@ interface ContainerProps {}
 const IMAGE_BASE_URL : string = "https://devfest2018.gdgnantes.com";
 
 const SessionDetails: React.FC<ContainerProps> = () => {
+<<<<<<< Updated upstream
   const { id } = useParams<{id:string}>();
+=======
+    const { id } = useParams<{id: string}>();
+>>>>>>> Stashed changes
   return (
     <IonPage>
         <IonHeader>
@@ -21,6 +25,13 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                     {
                         if (value.sessions?.length! > 0) {
                             let session = value.sessions?.find((session) => session.id.toString() == id);
+<<<<<<< Updated upstream
+=======
+                            let speakers = value.speakers?.filter(speaker => session!.speakers.includes(speaker.id));
+                            console.log(speakers);
+                            console.log(session);
+                            console.log( value.speakers);
+>>>>>>> Stashed changes
                             return <IonContent className="container">
                                 <IonTitle>{session!.title}</IonTitle>
                                 {session!.image &&
@@ -31,7 +42,7 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                                     {session!.description}
                                 </IonContent>
                                 }
-                                {session?.speakers && value.speakers?.filter(speaker => session!.speakers.includes(speaker.id)).map(speaker => {
+                                {session?.speakers && speakers!.map(speaker => {
                                     return <IonContent>
                                         <IonImg src={IMAGE_BASE_URL+speaker.photoUrl}/>
                                         <IonContent>{speaker.name}</IonContent>
