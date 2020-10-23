@@ -25,16 +25,17 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
         <IonContent fullscreen>
             <DevFestContext.Consumer>
                 {value =>
-                    {let speaker = value.speakers?.filter(speaker => speaker.id.toString() == params.id)
-                    let sessions = value.sessions?.filter(session => session.speakers.includes(speaker.id));
-                    return <IonContent className="container">
-                            <IonTitle>{speaker.name}</IonTitle>
-                            {speaker.photoUrl &&
-                                <IonImg src={IMAGE_BASE_URL+speaker.photoUrl}></IonImg>
+                    {let speaker = value.speakers?.filter(speaker => speaker.id.toString() == params.id)[0]
+                    let sessions = value.sessions?.filter(session => session.speakers ? session.speakers.includes(speaker!.id) : false);
+                    if(speaker){
+                        return <IonContent className="container">
+                            <IonTitle>{speaker!.name}</IonTitle>
+                            {speaker!.photoUrl &&
+                                <IonImg src={IMAGE_BASE_URL+speaker!.photoUrl}></IonImg>
                             }
-                            {speaker.shortBio &&
+                            {speaker!.shortBio &&
                                 <IonContent>
-                                    {speaker.shortBio}
+                                    {speaker!.shortBio}
                                 </IonContent>
                             }
                             {sessions?.map(session => {
@@ -44,6 +45,7 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
                             })
                             }
                         </IonContent>
+                    }
                     }}
             </DevFestContext.Consumer>
         </IonContent>
