@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonItem, IonPage, IonList} from '@ionic/react';
+import {IonContent, IonHeader, IonItem, IonPage, IonList, IonLabel} from '@ionic/react';
 import React from 'react';
 import './Home.css';
 import TopBarMenu from "../components/TopBarMenu";
@@ -16,7 +16,7 @@ const SpeakerList: React.FC = () => {
               {({speakers}) => {
               return speakers?.map((speaker) => (
                 <IonItem key={speaker.id}>
-                    <p>{speaker.name}</p>
+                    <IonLabel>{speaker.name}</IonLabel>
                 </IonItem>
               ))
               }}
