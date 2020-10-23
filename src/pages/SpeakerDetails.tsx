@@ -1,4 +1,4 @@
-import {IonCard, IonContent, IonHeader, IonPage, IonTitle} from '@ionic/react';
+import {IonCard, IonContent, IonHeader, IonPage, IonCardTitle, IonCardContent, IonCardHeader, IonTitle} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
 import React from 'react';
@@ -26,25 +26,27 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
                     if (value.sessions?.length! > 0) {
                         let speaker = value.speakers?.find((speaker) => speaker.id.toString() == id);
                         if(speaker){
-                            let sessions = value.sessions?.filter(session => session.speakers ? session.speakers.includes(speaker!.id) : false);
+                            let sessions = value.sessions?.filter(session => session.speakers ? session.speakers.findIndex(id => id==speaker!.id) != -1 : false);
                             return <IonContent className="container">
                                 <IonCard>
-                                    <IonTitle>{speaker!.name}</IonTitle>
+                                    <IonCardHeader>
+                                        <IonCardTitle>{speaker!.name}</IonCardTitle>
+                                    </IonCardHeader>
                                     {speaker!.photoUrl &&
                                     <img height={200} src={IMAGE_BASE_URL+speaker!.photoUrl}></img>
                                     }
                                     {speaker!.shortBio &&
-                                    <IonContent>
+                                    <IonCardContent>
                                         {speaker!.shortBio}
-                                    </IonContent>
+                                    </IonCardContent>
                                     }
                                 </IonCard>
-                                <div>Sessions</div>
+                                <IonTitle>Sessions</IonTitle>
                                 {sessions?.map(session => {
                                     return <IonCard  onClick={() => {
                                         history.push("/session/" + session.id);
                                     }}>
-                                        <p>{session.title}</p>
+                                        <IonCardContent>{session.title}</IonCardContent>
                                     </IonCard>
                                 })
                                 }
