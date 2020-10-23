@@ -1,26 +1,23 @@
-import {IonContent, IonHeader, IonImg, IonPage, IonTitle} from '@ionic/react';
+import {IonCard, IonContent, IonHeader, IonPage, IonTitle} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
 import React from 'react';
-import { useParams } from 'react-router';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    RouteComponentProps
-  } from "react-router-dom";
+import {useHistory, useParams} from 'react-router';
+import Back from "../components/Back";
 
 interface ContainerProps {}
 
-const IMAGE_BASE_URL : string = "https://devfest2018.gdgnantes.com";
+const IMAGE_BASE_URL : string = "https://devfest2018.gdgnantes.com/";
 
 
 const SpeakerDetails: React.FC<ContainerProps> = () => {
   let {id} = useParams<{id:string}>();
+  const history = useHistory();
   return (
     <IonPage>
         <IonHeader>
             <TopBarMenu title={"Présentateur"} />
+            <Back />
         </IonHeader>
         <IonContent fullscreen>
             <DevFestContext.Consumer>
@@ -31,19 +28,24 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
                         if(speaker){
                             let sessions = value.sessions?.filter(session => session.speakers ? session.speakers.includes(speaker!.id) : false);
                             return <IonContent className="container">
-                                <IonTitle>{speaker!.name}</IonTitle>
-                                {speaker!.photoUrl &&
-                                    <IonImg src={IMAGE_BASE_URL+speaker!.photoUrl}></IonImg>
-                                }
-                                {speaker!.shortBio &&
+                                <IonCard>
+                                    <IonTitle>{speaker!.name}</IonTitle>
+                                    {speaker!.photoUrl &&
+                                    <img height={200} src={IMAGE_BASE_URL+speaker!.photoUrl}></img>
+                                    }
+                                    {speaker!.shortBio &&
                                     <IonContent>
                                         {speaker!.shortBio}
                                     </IonContent>
-                                }
+                                    }
+                                </IonCard>
+                                <div>Sessions</div>
                                 {sessions?.map(session => {
-                                    return <IonContent>
-                                        <IonContent>{session.title}</IonContent>
-                                    </IonContent>
+                                    return <IonCard  onClick={() => {
+                                        history.push("/session/" + session.id);
+                                    }}>
+                                        <p>{session.title}</p>
+                                    </IonCard>
                                 })
                                 }
                             </IonContent>

@@ -5,3 +5,12 @@
     align-items: center;
     padding: 20px;
 }
+
+.container {
+    text-align: center;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}

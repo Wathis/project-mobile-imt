@@ -1,16 +1,14 @@
 import React from 'react';
-import {IonIcon, IonMenuToggle, IonTitle, IonToolbar, IonButton} from "@ionic/react";
-import {menu} from "ionicons/icons";
+import {IonButton} from "@ionic/react";
 import {useHistory} from "react-router";
 
 interface ContainerProps {
-    title: string;
 }
 
 const Back = (props : ContainerProps) => {
     const history = useHistory();
     return (
-        <IonButton onClick={() =>history.goBack()}>Back</IonButton>
+        <IonButton style={{margin: 10}} onClick={() =>history.goBack()}>Back</IonButton>
     );
 }
 

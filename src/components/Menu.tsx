@@ -11,7 +11,7 @@ import {
     IonTitle,
     IonToolbar
 } from "@ionic/react";
-import {RouteComponentProps, withRouter} from 'react-router';
+import {RouteComponentProps, useLocation, withRouter} from 'react-router';
 
 interface Page {
     title: string;
@@ -30,13 +30,12 @@ type Props = RouteComponentProps<{
 }>;
 
 const Menu = ({ history }: Props) => {
-    const [activePage, setActivePage] = useState(pages[0].title);
-
+    const location = useLocation();
     const renderMenuItems = (): JSX.Element[] => {
         return pages.map((page: Page) => (
             <IonMenuToggle key={page.title} auto-hide="false">
                 <IonItem button
-                         color={page.title === activePage ? 'primary' : ''}
+                         color={page.path == location.pathname ? 'primary' : ''}
                          onClick={() => navigateToPage(page)}>
                     <IonIcon slot="start" name={page.icon} />
                     <IonLabel>
@@ -49,7 +48,6 @@ const Menu = ({ history }: Props) => {
 
     const navigateToPage = (page: Page) => {
         history.push(page.path);
-        setActivePage(page.title);
     }
 
     return (

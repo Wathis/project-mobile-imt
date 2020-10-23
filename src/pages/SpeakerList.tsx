@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonItem, IonPage, IonList, IonLabel, IonIcon} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage} from '@ionic/react';
 import React from 'react';
 import './Home.css';
 import TopBarMenu from "../components/TopBarMenu";
