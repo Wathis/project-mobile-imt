@@ -23,6 +23,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Menu from "./components/Menu";
+import { Speaker } from './model/Speaker';
+import { Session } from './model/Session';
 
 interface Page {
     title: string;
@@ -35,21 +37,37 @@ const pages: Page[] = [
     { title: 'About', path: '/about', icon: 'information' }
 ];
 
+type DevFestContextProps = {
+    sessions : Session[],
+    speakers : Speaker[],
+    currentSession : Session,
+    changeCurrentSession : (session : Session) => void,
+    currentSpeaker : Speaker,
+    changeCurrentSpeaker : (speaker : Speaker) => void
+}
+export const DevFestContext  = React.createContext<Partial<DevFestContextProps>>({});
+
 const App: React.FC = () => (
     <IonReactRouter>
-        <div id="app">
-            <IonApp>
-                <IonSplitPane contentId="main">
-                    <Menu />
-                    <IonPage id="main">
-                        <Switch>
-                            <Route path="/home" component={Home} exact={true} />
-                            <Route exact path="/" render={() => <Redirect to="/home" />} />
-                        </Switch>
-                    </IonPage>
-                </IonSplitPane>
-            </IonApp>
-        </div>
+        <DevFestContext.Provider value={{
+            sessions : [],
+            speakers : []
+        }}>
+            <div id="app">
+                <IonApp>
+                    <IonSplitPane contentId="main">
+                        <Menu />
+                        <IonPage id="main">
+                            <Switch>
+                                <Route path="/home" component={Home} exact={true} />
+                                <Route exact path="/" render={() => <Redirect to="/home" />} />
+                            </Switch>
+                        </IonPage>
+                    </IonSplitPane>
+                </IonApp>
+            </div>
+        </DevFestContext.Provider>
+        
     </IonReactRouter>
 );
 
