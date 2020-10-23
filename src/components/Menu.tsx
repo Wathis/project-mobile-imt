@@ -22,7 +22,8 @@ interface Page {
 const pages: Page[] = [
     { title: 'Conférence', path: '/', icon: 'conférence' },
     { title: 'Sessions', path: '/sessions', icon: 'session' },
-    { title: 'Speakers', path: '/speakers', icon: 'speaker' }
+    { title: 'Speakers', path: '/speakers', icon: 'speaker' },
+    { title: 'Appareil', path: '/device', icon: 'appareil'}
 ];
 
 type Props = RouteComponentProps<{
