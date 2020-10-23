@@ -1,4 +1,13 @@
-import {IonCard, IonContent, IonHeader, IonPage, IonCardTitle, IonCardContent, IonCardHeader, IonTitle} from '@ionic/react';
+import {
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
+    IonContent,
+    IonHeader,
+    IonPage,
+    IonTitle
+} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
 import React from 'react';
@@ -24,7 +33,7 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
                 {value =>
                     {
                     if (value.sessions?.length! > 0) {
-                        let speaker = value.speakers?.find((speaker) => speaker.id.toString() == id);
+                        let speaker = value.speakers?.find((speaker) => speaker.id.toString() === id);
                         if(speaker){
                             let sessions = value.sessions?.filter(session => session.speakers ? session.speakers.findIndex(id => id==speaker!.id) != -1 : false);
                             return <IonContent className="container">

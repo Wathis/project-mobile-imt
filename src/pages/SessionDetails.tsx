@@ -1,10 +1,10 @@
-import {IonCard, IonContent, IonHeader, IonImg, IonPage, IonTitle, IonButton, IonTextarea} from '@ionic/react';
+import {IonCard, IonContent, IonHeader, IonImg, IonPage, IonTextarea, IonTitle} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import Back from '../components/Back';
-import { Plugins } from '@capacitor/core';
+import {Plugins} from '@capacitor/core';
 
 interface ContainerProps {}
 
@@ -28,11 +28,8 @@ const SessionDetails: React.FC<ContainerProps> = () => {
           setMesNotes(savedNotes ? savedNotes : "");
       }
       getNote();
-    }, []);
-    const getNote = async (note: string) => {
-        const notes = await Plugins.Storage.get({key: id});
+    }, [id]);
 
-    }
   return (
     <IonPage>
         <IonHeader>
@@ -44,7 +41,7 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                     {value =>
                     {
                         if (value.sessions?.length! > 0) {
-                            let session = value.sessions?.find((session) => session.id.toString() == id);
+                            let session = value.sessions?.find((session) => session.id.toString() === id.toString());
                             if(session){
                                 let speakers = value.speakers?.filter(speaker => session!.speakers ? session!.speakers.map(t => t.toString()).includes(speaker.id.toString()) : false );
                                 return <>
@@ -65,7 +62,7 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                                         return <IonCard style={{display: 'flex'}} onClick={() => {
                                             history.push("/speaker/" + speaker.id);
                                         }}>
-                                            <img width={50} src={IMAGE_BASE_URL+speaker.photoUrl}/>
+                                            <img alt={"photoSpeaker"} width={50} src={IMAGE_BASE_URL+speaker.photoUrl}/>
                                             <p>{speaker.name}</p>
                                         </IonCard>
                                     })

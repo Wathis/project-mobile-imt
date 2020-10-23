@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonPage, IonButton} from '@ionic/react';
+import {IonButton, IonContent, IonHeader, IonPage} from '@ionic/react';
 import React from 'react';
 import './Home.css';
 import TopBarMenu from "../components/TopBarMenu";
@@ -15,7 +15,7 @@ const Home: React.FC = () => {
       <IonContent fullscreen>
           <div className="container">
               <h2>Conférence DEV FEST 2017 + 1</h2>
-              <img width={300} src={"https://blog.empreintedigitale.fr/wp-content/uploads/sites/3/2017/11/logo-devfest-nantes-2017.png"} />
+              <img alt="log_dev" width={300} src={"https://blog.empreintedigitale.fr/wp-content/uploads/sites/3/2017/11/logo-devfest-nantes-2017.png"} />
               <div>
                   <IonButton onClick={() => history.push("/sessions")}>Liste des sessions</IonButton>
               </div>

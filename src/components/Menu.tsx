@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     IonContent,
     IonHeader,
@@ -35,7 +35,7 @@ const Menu = ({ history }: Props) => {
         return pages.map((page: Page) => (
             <IonMenuToggle key={page.title} auto-hide="false">
                 <IonItem button
-                         color={page.path == location.pathname ? 'primary' : ''}
+                         color={page.path === location.pathname ? 'primary' : ''}
                          onClick={() => navigateToPage(page)}>
                     <IonIcon slot="start" name={page.icon} />
                     <IonLabel>
