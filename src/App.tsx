@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {IonApp, IonPage, IonSplitPane} from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
 import SpeakerList from './pages/SpeakerList';
@@ -24,10 +24,12 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Menu from "./components/Menu";
 import SessionList from "./pages/SessionList";
-import { Session } from './model/Session';
-import { Speaker } from './model/Speaker';
+import {Session} from './model/Session';
+import {Speaker} from './model/Speaker';
 import Home from './pages/Home';
 import {getSessions} from "./service/api";
+import SessionDetails from "./pages/SessionDetails";
+import SpeakerDetails from "./pages/SpeakerDetails";
 
 
 type DevFestContextProps = {
@@ -62,6 +64,8 @@ const App: React.FC = (props) => {
                             <Switch>
                                 <Route path="/speakers" component={SpeakerList} exact={true}/>
                                 <Route path="/sessions" component={SessionList} exact={true}/>
+                                <Route path="/session/:id" component={SessionDetails} exact={true}/>
+                                <Route path="/speaker/:id" component={SpeakerDetails} exact={true}/>
                                 <Route path="/" component={Home} exact={true}/>
                             </Switch>
                         </IonPage>

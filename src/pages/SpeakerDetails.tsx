@@ -1,8 +1,7 @@
-import {IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar} from '@ionic/react';
+import {IonContent, IonHeader, IonPage} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
-import { DevFestContext } from '../App'
+import {DevFestContext} from '../App'
 import React from 'react';
-import './ExploreContainer.css';
 
 interface ContainerProps {}
 

@@ -1,5 +1,5 @@
-import { Speaker } from "./Speaker";
-import { Session } from './Session';
+import {Speaker} from "./Speaker";
+import {Session} from './Session';
 
 export class DevFestContext{
     constructor(

@@ -1,6 +1,7 @@
-import {IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar} from '@ionic/react';
+import {IonContent, IonHeader, IonPage, IonLabel, IonList, IonItem, IonButton, IonIcon} from '@ionic/react';
 import React from 'react';
 import './Home.css';
+import {chevronForwardOutline} from "ionicons/icons";
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from "../App";
 
@@ -14,16 +15,21 @@ const SessionList: React.FC = () => {
         <IonHeader collapse="condense">
         </IonHeader>
           <div className="container">
-              <DevFestContext.Consumer>
-
-                  {({sessions}) => {
-                  return sessions?.map((session) => (
-                    <div key={session.id}>
-                        <p>{session.title}</p>
-                    </div>
-                  ))
-                  }}
-              </DevFestContext.Consumer>
+              <IonList>
+                  <DevFestContext.Consumer>
+                          {({sessions,changeCurrentSession}) => {
+                              return sessions?.map((session) => (
+                                  <IonItem key={session.id} onClick={() => {
+                                      changeCurrentSession!(session);
+                                      
+                                  }}>
+                                      <IonLabel>{session.titleMobile ? session.titleMobile : session.title}</IonLabel>
+                                      <IonIcon  color="secondary" icon={chevronForwardOutline} float-right>More</IonIcon>
+                                  </IonItem>
+                              ))
+                          }}
+                  </DevFestContext.Consumer>
+              </IonList>
           </div>
       </IonContent>
     </IonPage>
