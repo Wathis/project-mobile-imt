@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {IonApp, IonPage, IonSplitPane} from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
@@ -27,6 +27,7 @@ import SessionList from "./pages/SessionList";
 import { Session } from './model/Session';
 import { Speaker } from './model/Speaker';
 import Home from './pages/Home';
+import {getSessions} from "./service/api";
 
 
 type DevFestContextProps = {
@@ -39,28 +40,36 @@ type DevFestContextProps = {
 }
 export const DevFestContext  = React.createContext<Partial<DevFestContextProps>>({});
 
-const App: React.FC = (props) => (
-    <IonReactRouter>
+const App: React.FC = (props) => {
+    const [sessions, setSessions] = useState<Session[]>([]);
+
+    useEffect(() => {
+        getSessions().then((sessionsJson) => {
+            setSessions(Object.keys(sessionsJson).map((id)  => sessionsJson[id]));
+        })
+    }, []);
+
+    return <IonReactRouter>
         <DevFestContext.Provider value={{
-            sessions : [],
-            speakers : []
+            sessions: sessions,
+            speakers: []
         }}>
-        <div id="app">
-            <IonApp>
-                <IonSplitPane contentId="main">
-                    <Menu />
-                    <IonPage id="main">
-                        <Switch>
-                            <Route path="/speakers" component={SpeakerList} exact={true} />
-                            <Route path="/sessions" component={SessionList} exact={true} />
-                            <Route path="/" component={Home} exact={true} />
-                        </Switch>
-                    </IonPage>
-                </IonSplitPane>
-            </IonApp>
-        </div>
+            <div id="app">
+                <IonApp>
+                    <IonSplitPane contentId="main">
+                        <Menu/>
+                        <IonPage id="main">
+                            <Switch>
+                                <Route path="/speakers" component={SpeakerList} exact={true}/>
+                                <Route path="/sessions" component={SessionList} exact={true}/>
+                                <Route path="/" component={Home} exact={true}/>
+                            </Switch>
+                        </IonPage>
+                    </IonSplitPane>
+                </IonApp>
+            </div>
         </DevFestContext.Provider>
     </IonReactRouter>
-);
+};
 
 export default App;

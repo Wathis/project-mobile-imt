@@ -2,6 +2,7 @@ import {IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar} fro
 import React from 'react';
 import './Home.css';
 import TopBarMenu from "../components/TopBarMenu";
+import {DevFestContext} from "../App";
 
 const SessionList: React.FC = () => {
   return (
@@ -13,7 +14,16 @@ const SessionList: React.FC = () => {
         <IonHeader collapse="condense">
         </IonHeader>
           <div className="container">
+              <DevFestContext.Consumer>
 
+                  {({sessions}) => {
+                  return sessions?.map((session) => (
+                    <div key={session.id}>
+                        <p>{session.title}</p>
+                    </div>
+                  ))
+                  }}
+              </DevFestContext.Consumer>
           </div>
       </IonContent>
     </IonPage>
