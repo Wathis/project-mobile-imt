@@ -24,8 +24,10 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Menu from "./components/Menu";
 import SessionList from "./pages/SessionList";
+import { Session } from './model/Session';
+import { Speaker } from './model/Speaker';
 
-const App: React.FC = (props) => (
+
 type DevFestContextProps = {
     sessions : Session[],
     speakers : Speaker[],
@@ -35,11 +37,12 @@ type DevFestContextProps = {
     changeCurrentSpeaker : (speaker : Speaker) => void
 }
 export const DevFestContext  = React.createContext<Partial<DevFestContextProps>>({});
+
+const App: React.FC = (props) => (
     <IonReactRouter>
-        
         <DevFestContext.Provider value={{
-            speakers : []
             sessions : [],
+            speakers : []
         }}>
         <div id="app">
             <IonApp>
