@@ -4,8 +4,12 @@ import './Home.css';
 import {chevronForwardOutline} from "ionicons/icons";
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from "../App";
+import { useHistory } from 'react-router-dom';
 
 const SessionList: React.FC = () => {
+
+    const history = useHistory();
+
   return (
     <IonPage>
       <IonHeader>
@@ -17,11 +21,10 @@ const SessionList: React.FC = () => {
           <div className="container">
               <IonList>
                   <DevFestContext.Consumer>
-                          {({sessions,changeCurrentSession}) => {
+                          {({sessions}) => {
                               return sessions?.map((session) => (
                                   <IonItem key={session.id} onClick={() => {
-                                      changeCurrentSession!(session);
-                                      
+                                      history.push("/session/" + session.id);
                                   }}>
                                       <IonLabel>{session.titleMobile ? session.titleMobile : session.title}</IonLabel>
                                       <IonIcon  color="secondary" icon={chevronForwardOutline} float-right>More</IonIcon>

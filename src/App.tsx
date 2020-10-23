@@ -35,10 +35,6 @@ import SpeakerDetails from "./pages/SpeakerDetails";
 type DevFestContextProps = {
     sessions : Session[],
     speakers : Speaker[],
-    currentSession : Session,
-    currentSpeaker : Speaker,
-    changeCurrentSession : (session : Session) => void,
-    changeCurrentSpeaker : (speaker : Speaker) => void
 }
 export const DevFestContext  = React.createContext<Partial<DevFestContextProps>>({});
 
