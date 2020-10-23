@@ -1,9 +1,10 @@
-import {IonCard, IonContent, IonHeader, IonImg, IonPage, IonTitle} from '@ionic/react';
+import {IonCard, IonContent, IonHeader, IonImg, IonPage, IonTitle, IonButton, IonTextarea} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
-import React from 'react';
+import React, {useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import Back from '../components/Back';
+import { Plugins } from '@capacitor/core';
 
 interface ContainerProps {}
 
@@ -12,13 +13,19 @@ const IMAGE_BASE_URL : string = "https://devfest2018.gdgnantes.com/";
 const SessionDetails: React.FC<ContainerProps> = () => {
   const { id } = useParams<{id:string}>();
   const history = useHistory();
+
+  const [mesNotes, setMesNotes] = useState("");
+
+  const saveNote = async (note: String) => {
+      const position = await Plugins.Geolocation.getCurrentPosition();
+  }
   return (
     <IonPage>
         <IonHeader>
-            <TopBarMenu title={"Session"} />
+            <TopBarMenu title={"Sessione"} />
             <Back />
         </IonHeader>
-        <IonContent fullscreen>
+        <IonContent fullscreen className={"container"}>
                 <DevFestContext.Consumer>
                     {value =>
                     {
@@ -26,7 +33,7 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                             let session = value.sessions?.find((session) => session.id.toString() == id);
                             if(session){
                                 let speakers = value.speakers?.filter(speaker => session!.speakers ? session!.speakers.map(t => t.toString()).includes(speaker.id.toString()) : false );
-                                return <IonContent className="container">
+                                return <>
                                     <IonCard>
                                         {session!.image &&
                                         <IonImg src={IMAGE_BASE_URL+session!.image} />
@@ -49,7 +56,15 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                                         </IonCard>
                                     })
                                     }
-                                </IonContent>
+                                    <IonCard>
+                                        <IonTitle>VOS NOTES</IonTitle>
+                                        <IonTextarea placeholder={"Ecrivez vos notes ici"} value={mesNotes} onIonChange={e => {
+                                            saveNote(e.detail.value!);
+                                            setMesNotes(e.detail.value!)
+                                        }}></IonTextarea>
+                                    </IonCard>
+
+                                </>
                             }
                         }
                     }}

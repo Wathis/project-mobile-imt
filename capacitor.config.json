@@ -1,8 +1,8 @@
 {
   "appId": "io.ionic.starter",
   "appName": "project-conf",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
+  "bundledWebRuntime": true,
+  "npmClient": "yarn",
   "webDir": "build",
   "plugins": {
     "SplashScreen": {
