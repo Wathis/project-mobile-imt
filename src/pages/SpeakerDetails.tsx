@@ -16,7 +16,7 @@ const IMAGE_BASE_URL : string = "https://devfest2018.gdgnantes.com";
 
 
 const SpeakerDetails: React.FC<ContainerProps> = () => {
-  let params = useParams<{id:string}>();
+  let {id} = useParams<{id:string}>();
   return (
     <IonPage>
         <IonHeader>
@@ -25,28 +25,31 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
         <IonContent fullscreen>
             <DevFestContext.Consumer>
                 {value =>
-                    {let speaker = value.speakers?.filter(speaker => speaker.id.toString() == params.id)[0]
-                    let sessions = value.sessions?.filter(session => session.speakers ? session.speakers.includes(speaker!.id) : false);
-                    if(speaker){
-                        return <IonContent className="container">
-                            <IonTitle>{speaker!.name}</IonTitle>
-                            {speaker!.photoUrl &&
-                                <IonImg src={IMAGE_BASE_URL+speaker!.photoUrl}></IonImg>
-                            }
-                            {speaker!.shortBio &&
-                                <IonContent>
-                                    {speaker!.shortBio}
-                                </IonContent>
-                            }
-                            {sessions?.map(session => {
-                                return <IonContent>
-                                    <IonContent>{session.title}</IonContent>
-                                </IonContent>
-                            })
-                            }
-                        </IonContent>
-                    }
+                    {
+                    if (value.sessions?.length! > 0) {
+                        let speaker = value.speakers?.find((speaker) => speaker.id.toString() == id);
+                        if(speaker){
+                            let sessions = value.sessions?.filter(session => session.speakers ? session.speakers.includes(speaker!.id) : false);
+                            return <IonContent className="container">
+                                <IonTitle>{speaker!.name}</IonTitle>
+                                {speaker!.photoUrl &&
+                                    <IonImg src={IMAGE_BASE_URL+speaker!.photoUrl}></IonImg>
+                                }
+                                {speaker!.shortBio &&
+                                    <IonContent>
+                                        {speaker!.shortBio}
+                                    </IonContent>
+                                }
+                                {sessions?.map(session => {
+                                    return <IonContent>
+                                        <IonContent>{session.title}</IonContent>
+                                    </IonContent>
+                                })
+                                }
+                            </IonContent>
+                        }
                     }}
+                }
             </DevFestContext.Consumer>
         </IonContent>
     </IonPage>

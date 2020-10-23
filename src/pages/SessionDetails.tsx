@@ -21,25 +21,27 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                     {
                         if (value.sessions?.length! > 0) {
                             let session = value.sessions?.find((session) => session.id.toString() == id);
-                            let speakers = value.speakers?.filter(speaker => session!.speakers.map(t => t.toString()).includes(speaker.id.toString()));
-                            return <IonContent className="container">
-                                <IonTitle>{session!.title}</IonTitle>
-                                {session!.image &&
-                                <IonImg src={IMAGE_BASE_URL+session!.image} />
-                                }
-                                {session!.description &&
-                                <IonContent>
-                                    {session!.description}
-                                </IonContent>
-                                }
-                                {session?.speakers && speakers!.map(speaker => {
-                                    return <IonContent>
-                                        <IonImg src={IMAGE_BASE_URL+speaker.photoUrl}/>
-                                        <IonContent>{speaker.name}</IonContent>
+                            if(session){
+                                let speakers = value.speakers?.filter(speaker => session!.speakers ? session!.speakers.map(t => t.toString()).includes(speaker.id.toString()) : false );
+                                return <IonContent className="container">
+                                    <IonTitle>{session!.title}</IonTitle>
+                                    {session!.image &&
+                                    <IonImg src={IMAGE_BASE_URL+session!.image} />
+                                    }
+                                    {session!.description &&
+                                    <IonContent>
+                                        {session!.description}
                                     </IonContent>
-                                })
-                                }
-                            </IonContent>
+                                    }
+                                    {session?.speakers && speakers!.map(speaker => {
+                                        return <IonContent>
+                                            <IonImg src={IMAGE_BASE_URL+speaker.photoUrl}/>
+                                            <IonContent>{speaker.name}</IonContent>
+                                        </IonContent>
+                                    })
+                                    }
+                                </IonContent>
+                            }
                         }
                     }}
             </DevFestContext.Consumer>
