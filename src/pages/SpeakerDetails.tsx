@@ -6,13 +6,17 @@ import {
     IonContent,
     IonHeader,
     IonPage,
-    IonTitle
+    IonTitle,
+    IonToggle,
+    IonItem,
+    IonLabel
 } from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
-import React from 'react';
 import {useHistory, useParams} from 'react-router';
 import Back from "../components/Back";
+import {Plugins} from '@capacitor/core';
+import React, {useEffect, useState} from 'react';
 
 interface ContainerProps {}
 
@@ -22,6 +26,28 @@ const IMAGE_BASE_URL : string = "https://devfest2018.gdgnantes.com/";
 const SpeakerDetails: React.FC<ContainerProps> = () => {
   let {id} = useParams<{id:string}>();
   const history = useHistory();
+
+  const [isContact, setIsContact] = useState(false);
+
+  const addContact = async () => {
+    await Plugins.Storage.set({
+        key: "contact-"+id,
+        value: id,
+    });
+  }
+
+  const removeContact = async () =>{
+    await Plugins.Storage.remove({key : "contact-"+id});
+  }
+
+  useEffect(() => {
+    const getContact = async () => {
+        const {value: savedContacts} = await Plugins.Storage.get({key: "contact-"+id}) ;
+        setIsContact(savedContacts ? true : false);
+    }
+    getContact();
+  }, [id]);
+
   return (
     <IonPage>
         <IonHeader>
@@ -40,6 +66,13 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
                                 <IonCard>
                                     <IonCardHeader>
                                         <IonCardTitle>{speaker!.name}</IonCardTitle>
+                                        <IonItem>
+                                            <IonLabel>Ajouter à mes contacts</IonLabel>
+                                            <IonToggle value="sausage" checked={isContact} onIonChange={
+                                                e => isContact ? removeContact() : addContact()
+                                            } />
+                                        </IonItem>
+                                        
                                     </IonCardHeader>
                                     {speaker!.photoUrl &&
                                     <img height={200} src={IMAGE_BASE_URL+speaker!.photoUrl}></img>
@@ -68,5 +101,9 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
     </IonPage>
   );
 };
+
+function addContact(){
+
+}
 
 export default SpeakerDetails;
