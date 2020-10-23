@@ -21,11 +21,7 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                     {
                         if (value.sessions?.length! > 0) {
                             let session = value.sessions?.find((session) => session.id.toString() == id);
-
-                            let speakers = value.speakers?.filter(speaker => session!.speakers.includes(speaker.id));
-                            console.log(speakers);
-                            console.log(session);
-                            console.log( value.speakers);
+                            let speakers = value.speakers?.filter(speaker => session!.speakers.map(t => t.toString()).includes(speaker.id.toString()));
                             return <IonContent className="container">
                                 <IonTitle>{session!.title}</IonTitle>
                                 {session!.image &&
