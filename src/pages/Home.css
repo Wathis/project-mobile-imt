@@ -1,0 +1,7 @@
+.menu-toolbar {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}

@@ -1,7 +1,6 @@
-
 let baseUrl = "https://devfest-nantes-2018-api.cleverapps.io"
 
-const getSessions = () => {
+export const getSessions = () => {
     return new Promise(
         (resolve, reject) => {
             fetch(`${baseUrl}/sessions`)
