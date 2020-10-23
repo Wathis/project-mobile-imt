@@ -96,14 +96,14 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                                         }
                                     </IonCard>
                                     <p>Speakers</p>
-                                    {session?.speakers && speakers!.map(speaker => {
+                                    {session?.speakers ? speakers!.map(speaker => {
                                         return <IonCard style={{display: 'flex'}} onClick={() => {
                                             history.push("/speaker/" + speaker.id);
                                         }}>
                                             <img alt={"photoSpeaker"} width={50} src={IMAGE_BASE_URL+speaker.photoUrl}/>
                                             <p>{speaker.name}</p>
                                         </IonCard>
-                                    })
+                                    }):  <p>Pas de speaker</p>
                                     }
                                     <IonCard>
                                         <IonTitle>VOS NOTES</IonTitle>
