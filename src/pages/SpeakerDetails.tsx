@@ -2,14 +2,21 @@ import {IonContent, IonHeader, IonImg, IonPage, IonTitle} from '@ionic/react';
 import TopBarMenu from "../components/TopBarMenu";
 import {DevFestContext} from '../App'
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    RouteComponentProps
+  } from "react-router-dom";
 
 interface ContainerProps {}
 
 const IMAGE_BASE_URL : string = "https://devfest2018.gdgnantes.com";
 
+
 const SpeakerDetails: React.FC<ContainerProps> = () => {
-    const { id: speakerId } = useParams();
+  let params = useParams<{id:string}>();
   return (
     <IonPage>
         <IonHeader>
@@ -18,7 +25,7 @@ const SpeakerDetails: React.FC<ContainerProps> = () => {
         <IonContent fullscreen>
             <DevFestContext.Consumer>
                 {value =>
-                    {let speaker = value.speakers![speakerId];
+                    {let speaker = value.speakers?.filter(speaker => speaker.id.toString() == params.id)
                     let sessions = value.sessions?.filter(session => session.speakers.includes(speaker.id));
                     return <IonContent className="container">
                             <IonTitle>{speaker.name}</IonTitle>
