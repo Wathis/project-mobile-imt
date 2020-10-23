@@ -30,17 +30,23 @@ import Home from './pages/Home';
 import {getSessions, getSpeakers} from "./service/api";
 import SessionDetails from "./pages/SessionDetails";
 import SpeakerDetails from "./pages/SpeakerDetails";
-
+import { DeviceInfo } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
+import DeviceInfos from './pages/DeviceInfos';
 
 type DevFestContextProps = {
     sessions : Session[],
     speakers : Speaker[],
+    deviceInfo : DeviceInfo
 }
 export const DevFestContext  = React.createContext<Partial<DevFestContextProps>>({});
+
+const { Device } = Plugins;
 
 const App: React.FC = (props) => {
     const [sessions, setSessions] = useState<Session[]>([]);
     const [speakers, setSpeakers] = useState<Speaker[]>([]);
+    const [deviceInfo, setDeviceInfo] = useState<DeviceInfo>();
 
     useEffect(() => {
         getSessions().then((sessionsJson) => {
@@ -49,12 +55,16 @@ const App: React.FC = (props) => {
         getSpeakers().then((speakersJson) => {
             setSpeakers(Object.keys(speakersJson).map((id) => speakersJson[id]));
         })
+        Device.getInfo().then((deviceInfoJson) => {
+            setDeviceInfo(deviceInfoJson);
+        })
     }, []);
 
     return <IonReactRouter>
         <DevFestContext.Provider value={{
             sessions: sessions,
-            speakers: speakers
+            speakers: speakers,
+            deviceInfo : deviceInfo
         }}>
             <div id="app">
                 <IonApp>
@@ -64,6 +74,7 @@ const App: React.FC = (props) => {
                             <Switch>
                                 <Route path="/speakers" component={SpeakerList} exact={true}/>
                                 <Route path="/sessions" component={SessionList} exact={true}/>
+                                <Route path="/device" component={DeviceInfos} exact={true}/>
                                 <Route path="/session/:id" component={SessionDetails} exact={true}/>
                                 <Route path="/speaker/:id" component={SpeakerDetails} exact={true}/>
                                 <Route path="/" component={Home} exact={true}/>
