@@ -9,7 +9,7 @@ interface ContainerProps {}
 const IMAGE_BASE_URL : string = "https://devfest2018.gdgnantes.com";
 
 const SessionDetails: React.FC<ContainerProps> = () => {
-    const { id } = useParams();
+  const { id } = useParams<{id:string}>();
   return (
     <IonPage>
         <IonHeader>
@@ -20,7 +20,7 @@ const SessionDetails: React.FC<ContainerProps> = () => {
                 {value =>
                     {
                         if (value.sessions?.length! > 0) {
-                            let session = value.sessions?.find((session) => session.id == id);
+                            let session = value.sessions?.find((session) => session.id.toString() == id);
                             return <IonContent className="container">
                                 <IonTitle>{session!.title}</IonTitle>
                                 {session!.image &&
