@@ -11,10 +11,6 @@ const SessionList: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
-          <IonToolbar>
-              <IonMenuButton slot="end" color="secondary" />
-            <IonTitle size="large">zd</IonTitle>
-          </IonToolbar>
         </IonHeader>
           <div className="container">
 

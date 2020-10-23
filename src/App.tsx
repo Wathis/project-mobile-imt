@@ -24,6 +24,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Menu from "./components/Menu";
 import SessionList from "./pages/SessionList";
+import Home from './pages/Home';
 
 const App: React.FC = (props) => (
 type DevFestContextProps = {
@@ -49,7 +50,7 @@ export const DevFestContext  = React.createContext<Partial<DevFestContextProps>>
                         <Switch>
                             <Route path="/speakers" component={SpeakerList} exact={true} />
                             <Route path="/sessions" component={SessionList} exact={true} />
-                            <Route exact path="/" render={() => <Redirect to="/sessions" />} />
+                            <Route path="/" component={Home} exact={true} />
                         </Switch>
                     </IonPage>
                 </IonSplitPane>
